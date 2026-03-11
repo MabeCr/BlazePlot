@@ -5,12 +5,11 @@ duration = 10
 fs = 44100
 
 sd.default.samplerate = 44100
-sd.default.channels = 2
 
 
 def main():
     print("Recording Audio")
-    myrecording = sd.rec(int(duration * fs), channels=1)
+    myrecording = sd.rec(int(duration * fs), channels=2, device="CABLE Output MME")
     sd.wait()
     print("Audio Finished Recording")
 
