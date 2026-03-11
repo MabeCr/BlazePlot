@@ -1,7 +1,9 @@
 [project]
 name = "blazeplot"
 version = "0.1.0"
-description = "Add your description here"
+description = "BlazePlot listens to a local Fire Dispatch frequency and plots all of the updates come from it on a map to make it more visual."
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "sounddevice>=0.5.5",
+]
