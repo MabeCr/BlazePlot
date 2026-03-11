@@ -5,6 +5,7 @@ description = "BlazePlot listens to a local Fire Dispatch frequency and plots al
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "keyboard>=0.13.5",
     "numpy>=2.4.3",
     "sounddevice>=0.5.5",
 ]
