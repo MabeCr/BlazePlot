@@ -7,6 +7,7 @@ requires-python = ">=3.14"
 dependencies = [
     "keyboard>=0.13.5",
     "numpy>=2.4.3",
+    "openai-whisper>=20250625",
     "sounddevice>=0.5.5",
 ]
 
