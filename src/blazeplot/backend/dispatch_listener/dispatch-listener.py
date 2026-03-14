@@ -18,7 +18,7 @@ def calibrate_cutoff(silence_file):
     # Define a threshold for speech detection
     speech_threshold = 1.1 * audio_level
 
-    print(f"Speech Threshold: {speech_threshold}")
+    print("Speech Threshold Set")
     return speech_threshold
 
 def check_for_dispatch(audio_array, speech_threshold):
@@ -35,7 +35,12 @@ def check_for_dispatch(audio_array, speech_threshold):
 
 def main():
     print("Initializing Dispatch Listener")
-    speech_threshold = calibrate_cutoff("./silence_calibration_audio.npy")
+    try:
+        print("Silence calibration file found! Setting speech threshold...")
+        speech_threshold = calibrate_cutoff("./silence_calibration_audio.npy")
+    except FileNotFoundError:
+        print("No silence_calibration_audio.npy file found. Please provide a silence calibration file before trying again. Exiting...")
+        return
 
     print("Recording Audio")
     myrecording = sd.rec(int(duration * fs), channels=2, device="CABLE Output MME")
