@@ -9,11 +9,11 @@ from blazeplot.backend.dispatch_listener import DispatchListener
 model = whisper.load_model("tiny")
 listener = DispatchListener()
 
-duration = 10
+duration = 20
 fs = 16000
 
 def transcribe_audio(audio):
-    result = model.transcribe(audio)
+    result = model.transcribe(np.squeeze(audio))
     return result
 
 def main():
@@ -26,7 +26,7 @@ def main():
         return
 
     print("Recording Audio")
-    myrecording = sd.rec(int(duration * fs), channels=1, device="CABLE Output MME", dtype='float32')
+    myrecording = sd.rec(int(duration * fs), samplerate=fs,channels=1, device="CABLE Output MME", dtype=np.float32)
     sd.wait()
     print("Audio Finished Recording")
 
@@ -37,19 +37,13 @@ def main():
     keyboard.wait('space')
 
     print("Playing Audio")
-    sd.play(myrecording)
+    sd.play(myrecording, samplerate=fs)
     sd.wait()
     print("Audio Finished Playing")
 
     print("Transcribing Audio")
     transcribed_audio = transcribe_audio(myrecording)
     print(transcribed_audio["text"])
-    
-    # audio = np.load("F:\\Programming\\projects\\radio\\BlazePlot\\src\\blazeplot\\backend\\dispatch_listener\\voice_test_recording.npy")
-    # print(transcribe_audio(audio)["text"])
-
-    #test_audio: np.ndarray = whisper.load_audio("F:\\Programming\\projects\\radio\\BlazePlot\\src\\blazeplot\\backend\\speech_to_text\\weather_test_file.wav")
-    #print(transcribe_audio(test_audio)["text"])
 
 if __name__ == "__main__":
     main()
