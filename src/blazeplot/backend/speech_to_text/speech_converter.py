@@ -12,7 +12,7 @@ listener = DispatchListener()
 duration = 10
 fs = 16000
 
-def transcribe_audio(audio: np.ndarray):
+def transcribe_audio(audio):
     result = model.transcribe(audio)
     return result
 
