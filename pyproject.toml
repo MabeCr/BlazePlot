@@ -9,3 +9,11 @@ dependencies = [
     "numpy>=2.4.3",
     "sounddevice>=0.5.5",
 ]
+
+[build-system]
+requires = 
+["uv_build>=0.917,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
