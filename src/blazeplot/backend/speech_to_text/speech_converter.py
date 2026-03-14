@@ -14,6 +14,7 @@ fs = 16000
 
 def transcribe_audio(audio):
     result = model.transcribe(np.squeeze(audio))
+    #result = model.transcribe(audio)
     return result
 
 def main():
@@ -31,19 +32,27 @@ def main():
     print("Audio Finished Recording")
 
     print("Checking for Dispatch Audio")
-    listener.check_for_dispatch(myrecording)
+    if(listener.check_for_dispatch(myrecording)):
+        print("Press Space Key to Continue")
+        keyboard.wait('space')
 
-    print("Press Space Key to Continue")
-    keyboard.wait('space')
+        print("Playing Audio")
+        sd.play(myrecording, samplerate=fs)
+        sd.wait()
+        print("Audio Finished Playing")
 
-    print("Playing Audio")
-    sd.play(myrecording, samplerate=fs)
-    sd.wait()
-    print("Audio Finished Playing")
+        print("Transcribing Audio")
+        transcribed_audio = transcribe_audio(myrecording)
+        print(transcribed_audio["text"])
+    else:
+        print("No Dispatch Audio Detected")
+        return
 
-    print("Transcribing Audio")
-    transcribed_audio = transcribe_audio(myrecording)
-    print(transcribed_audio["text"])
+
+    # print("Transcribing Test Audio")
+    # test_medical_alert = whisper.load_audio("medical_alert_test_file_no_tone.wav")
+    # transcribed_audio = transcribe_audio(test_medical_alert)
+    # print(transcribed_audio["text"])
 
 if __name__ == "__main__":
     main()
